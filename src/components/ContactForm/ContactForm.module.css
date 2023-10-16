@@ -1,0 +1,39 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto 20px;
+}
+
+.label {
+  margin-bottom: 16px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px 12px;
+
+  border-radius: 8px;
+}
+
+.btn {
+  display: inline-block;
+  margin: 24px auto 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+  padding: 16px 32px;
+  border-radius: 12px;
+  background-color: #f2ea7d;
+  cursor: pointer;
+  transition: all .6s;
+}
+
+.btn:hover,
+.btn:focus {
+  filter: brightness(110%);
+}
