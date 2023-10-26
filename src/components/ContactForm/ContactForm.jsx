@@ -1,62 +1,66 @@
-import { Component } from 'react';
-import css from './ContactForm.module.css'
+import { useState } from 'react';
+import css from './ContactForm.module.css';
+import shortid from 'shortid';
 
-class ContactForm extends Component {
-  state = {
-    name: '',
-    phone: '',
-  }
+const ContactForm = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  inputHandler = e => {
-    const {name, value} = e.currentTarget
-    this.setState({
-      [name]: value,
-    })
+  const hendelInputChange = event => {
+    const { name, value } = event.target;
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+      default:
+        return;
+    }
   };
 
-  reset = () => {
-    this.setState({name: '', phone: '',})
-  }
+  const reset = () => {
+    setName('');
+    setNumber('');
+  };
 
-  submitContact = e => {
-    e.preventDefault()
+  const submitContact = e => {
+    e.preventDefault();
 
-    this.props.onSubmit(this.state)
-    this.reset()
-  }
+    onSubmit({ id: shortid.generate(), name, number });
+    reset();
+  };
 
-  
-
-  render() {
-    return (
-      <form className={css.form} onSubmit={this.submitContact}>
-        <label className={css.label}>
-          Name
-          <input
+  return (
+    <form className={css.form} onSubmit={submitContact}>
+      <label className={css.label}>
+        Name
+        <input
           className={css.input}
-            type="text"
-            name="name"
-            value={this.state.name}
-            onChange={this.inputHandler}
-            required
-          />
-        </label>
-        <label className={css.label}>
+          type="text"
+          name="name"
+          value={name}
+          onChange={hendelInputChange}
+          required
+        />
+      </label>
+      <label className={css.label}>
         Number
-          <input
+        <input
           className={css.input}
-            type="tel"
-            name="phone"
-            value={this.state.phone}
-            onChange={this.inputHandler}
-            required
-          />
-          
-        </label>
-        <button className={css.btn} type="submit">Add contact</button>
-      </form>
-    );
-  }
-}
+          type="tel"
+          name="number"
+          value={number}
+          onChange={hendelInputChange}
+          required
+        />
+      </label>
+      <button className={css.btn} type="submit">
+        Add contact
+      </button>
+    </form>
+  );
+};
 
 export default ContactForm;
